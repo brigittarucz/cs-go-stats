@@ -1,0 +1,15 @@
+{
+    "USER_CONNECT_CT": "switched from team <Unassigned> to <CT>",
+    "USER_CONNECT_T": "switched from team <Unassigned> to <TERRORIST>",
+    "MATCH_STATUS_TEAMS": "MatchStatus: Team playing",
+    "MATCH_STATUS_ROUNDS": "RoundsPlayed",
+    "CT_WIN": "Team \"CT\" triggered",
+    "T_WIN": "Team \"TERRORIST\" triggered",
+    "USER_PURCHASED": "purchased",
+    "USER_ATTACKED": "attacked",
+    "USER_KILLED": "killed",
+    "USER_ASSISTED": "assisted killing",
+    "USER_MONEY": "money change",
+    "BOMB_DEFUSALS": "Defused_The_Bomb",
+    "BOMB_PLANTINGS": "Planted_The_Bomb"
+}

@@ -24,6 +24,7 @@ Relevant lines:
 11/28/2021 - 21:30:17: MatchStatus: Team playing "TERRORIST": TeamVitality
 11/28/2021 - 21:30:17: MatchStatus: Score: 6:16 on map "de_nuke" RoundsPlayed: 22
 11/28/2021 - 21:30:17: Game Over: competitive 1092904694 de_nuke score 6:16 after 50 min
+11/28/2021 - 20:27:43: "misutaaa<24><STEAM_1:1:60631591>" switched from team <Unassigned> to <CT>
 
 - Scores
 11/28/2021 - 20:41:09: Team "CT" scored "0" with "5" players
