@@ -6,31 +6,58 @@ const fileStream = fs.createReadStream(__dirname + "/game.txt");
 const lineReader = readline.createInterface({
     input: fileStream,
 });
+var KeywordsEnum;
+(function (KeywordsEnum) {
+    KeywordsEnum["MATCH_STATUS_TEAMS"] = "MATCH_STATUS_TEAMS";
+    KeywordsEnum["MATCH_STATUS_ROUNDS"] = "MATCH_STATUS_ROUNDS";
+})(KeywordsEnum || (KeywordsEnum = {}));
+const LAST_LINE = "11/28/2021 - 21:31:49: Your server needs to be restarted in order to receive the latest update.";
 const findDuplicates = (arr) => arr.filter((item, index) => arr.indexOf(item) != index);
-const formatter = {
-    USER_CONNECT: (arrLines) => {
-        const formattedUsersCt = arrLines.map((line) => {
+const dataManager = {
+    buildHistory: (key, line) => {
+        switch (key) {
+            case KeywordsEnum.MATCH_STATUS_ROUNDS: {
+                historical[key].push(line);
+                const rounds = historical[KeywordsEnum.MATCH_STATUS_ROUNDS];
+                const teams = historical[KeywordsEnum.MATCH_STATUS_TEAMS];
+                if (teams.length === 2 &&
+                    rounds[rounds.length - 1].includes("RoundsPlayed: 1 ")) {
+                    delete keywords[KeywordsEnum.MATCH_STATUS_TEAMS];
+                }
+                else {
+                    historical[KeywordsEnum.MATCH_STATUS_TEAMS] = [];
+                }
+                break;
+            }
+            default:
+                historical[key].push(line);
+        }
+    },
+    formatUsers: (arrLines) => {
+        const formattedUsers = arrLines.map((line) => {
             // eslint-disable-next-line prettier/prettier
             return line.split("<")[0].split("\"")[1];
         });
-        findDuplicates(formattedUsersCt).forEach((duplicateUser) => {
-            formattedUsersCt.splice(formattedUsersCt.indexOf(duplicateUser), 1);
+        findDuplicates(formattedUsers).forEach((duplicateUser) => {
+            formattedUsers.splice(formattedUsers.indexOf(duplicateUser), 1);
         });
-        return formattedUsersCt;
+        return formattedUsers;
+    },
+    formatTeams: (arrLines) => {
+        const formattedTeams = arrLines.map((line) => {
+            const arrWords = line.split(":");
+            return arrWords[arrWords.length - 1].trim();
+        });
+        return formattedTeams;
     },
 };
-const LAST_LINE = "11/28/2021 - 21:31:49: Your server needs to be restarted in order to receive the latest update.";
-const MATCH_STATUS_TEAMS = "MATCH_STATUS_TEAMS";
 if (!(historical.LAST_LINE_READ === LAST_LINE)) {
     let lastLine;
     lineReader.on("line", (line) => {
         lastLine = line;
         for (const key in keywords) {
             if (line.includes(keywords[key])) {
-                historical[key].push(line);
-                if (historical[MATCH_STATUS_TEAMS].length === 2) {
-                    delete keywords[MATCH_STATUS_TEAMS];
-                }
+                dataManager.buildHistory(key, line);
                 return;
             }
         }
@@ -51,7 +78,7 @@ else {
     formatHistoricalData();
 }
 function formatHistoricalData() {
-    console.log(formatter.USER_CONNECT(historical.USER_CONNECT_CT));
-    console.log(formatter.USER_CONNECT(historical.USER_CONNECT_T));
+    console.log(dataManager.formatUsers(historical.USER_CONNECT_CT));
+    console.log(dataManager.formatUsers(historical.USER_CONNECT_T));
 }
 //# sourceMappingURL=cli.js.map
