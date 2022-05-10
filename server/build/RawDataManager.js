@@ -80,6 +80,16 @@ module.exports = class RawDataManager {
             });
             return rounds;
         };
+        this.formatWins = (rounds, wins) => {
+            console.log(wins);
+            const newRounds = rounds.map((round) => {
+                const scoreNumbers = round.score.split(":");
+                const winString = `(CT "${scoreNumbers[0]}") (T "${scoreNumbers[1]}")`;
+                const foundLine = wins.find((win) => win.includes(winString));
+                return Object.assign(Object.assign({}, round), { reasonWin: foundLine.split("triggered")[1].split('"')[1] });
+            });
+            return newRounds;
+        };
         this.constructUsersStats = (arrUsers) => {
             const usersStats = {};
             arrUsers.forEach((user) => {

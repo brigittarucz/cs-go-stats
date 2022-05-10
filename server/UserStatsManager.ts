@@ -7,6 +7,7 @@ interface RoundInterface {
     date: string;
     score: string;
     roundsPlayed: number;
+    win?: string;
 }
 
 module.exports = class UserStatsManager {

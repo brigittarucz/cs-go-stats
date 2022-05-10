@@ -9,6 +9,7 @@ interface RoundInterface {
     date: string;
     score: string;
     roundsPlayed: number;
+    reasonWin?: string;
 }
 
 module.exports = class RawDataManager {
@@ -113,6 +114,23 @@ module.exports = class RawDataManager {
         });
 
         return rounds;
+    };
+
+    formatWins = (rounds: RoundInterface[], wins: string[]) => {
+        console.log(wins);
+
+        const newRounds = rounds.map((round) => {
+            const scoreNumbers = round.score.split(":");
+            const winString = `(CT "${scoreNumbers[0]}") (T "${scoreNumbers[1]}")`;
+            const foundLine = wins.find((win) => win.includes(winString));
+
+            return {
+                ...round,
+                reasonWin: foundLine.split("triggered")[1].split('"')[1],
+            };
+        });
+
+        return newRounds;
     };
 
     constructUsersStats = (arrUsers: string[]) => {
