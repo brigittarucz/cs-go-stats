@@ -98,6 +98,7 @@ module.exports = class RawDataManager {
                 const newUserStat = {
                     weapons: {},
                     attacked: {},
+                    killed: {},
                     assistedKilling: {},
                     moneyWon: 0,
                     moneySpent: 0,

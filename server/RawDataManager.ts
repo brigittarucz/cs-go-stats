@@ -5,9 +5,16 @@ enum KeywordsEnumDataManager {
     USER_CONNECT_T = "USER_CONNECT_T",
 }
 
+interface KilledI {
+    times: number;
+    weapons: string[];
+    headshots: number;
+}
+
 interface UserStatisticsI {
     weapons: Record<string, number>;
     attacked: Record<string, AttackedI>;
+    killed: Record<string, KilledI>;
     assistedKilling: Record<string, { times: number }>;
     moneyWon: number;
     moneySpent: number;
@@ -150,6 +157,7 @@ module.exports = class RawDataManager {
             const newUserStat: UserStatisticsI = {
                 weapons: {},
                 attacked: {},
+                killed: {},
                 assistedKilling: {},
                 moneyWon: 0,
                 moneySpent: 0,

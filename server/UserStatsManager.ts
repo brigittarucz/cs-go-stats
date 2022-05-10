@@ -21,9 +21,16 @@ interface AttackedI {
     with: WithI[];
 }
 
+interface KilledI {
+    times: number;
+    weapons: string[];
+    headshots: number;
+}
+
 interface UserStatisticsI {
     weapons: Record<string, number>;
     attacked: Record<string, AttackedI>;
+    killed: Record<string, KilledI>;
     assistedKilling: Record<string, { times: number }>;
     moneyWon: number;
     moneySpent: number;
@@ -32,6 +39,12 @@ interface UserStatisticsI {
 }
 
 module.exports = class UserStatsManager {
+    static excludeKeywords = [
+        "func_breakable",
+        "prop_dynamic",
+        "prop_door_rotating",
+    ];
+
     constructor(
         protected initTeamCT: TeamI,
         protected initTeamT: TeamI,
@@ -45,6 +58,9 @@ module.exports = class UserStatsManager {
     };
 
     getUserStatsMain = () => {
+        // console.log(this.userStatsMain);
+        // console.log(this.initTeamT);
+        // console.log(this.initTeamCT);
         return this.userStatsMain;
     };
 
@@ -108,7 +124,37 @@ module.exports = class UserStatsManager {
     };
 
     formatKilled = (historicalKilled: string[]) => {
-        console.log(historicalKilled);
+        historicalKilled.forEach((line) => {
+            const killer = this.getUserFromString(line.split("killed")[0]);
+            const killed = this.getUserFromString(line.split("killed")[1]);
+
+            const isUserInvalid =
+                UserStatsManager.excludeKeywords.find(
+                    (kw) => kw === killer || kw === killed
+                ) || false;
+
+            if (isUserInvalid) {
+                return;
+            }
+
+            const weapon = line.split("with")[1].split('"')[1];
+            const isItHeadshot = Boolean(line.split("with")[1].split('"')[2]);
+
+            const killerKillHistory = this.userStatsMain[killer].killed;
+
+            !(killed in killerKillHistory) &&
+                (killerKillHistory[killed] = {
+                    times: 0,
+                    weapons: [],
+                    headshots: 0,
+                });
+
+            killed in killerKillHistory &&
+                killerKillHistory[killed].times++ &&
+                killerKillHistory[killed].weapons.push(weapon);
+
+            isItHeadshot && killerKillHistory[killed].headshots++;
+        });
     };
 
     formatAssisted = (historicalAssisted: string[]) => {
@@ -131,13 +177,15 @@ module.exports = class UserStatsManager {
 
     formatBombsDefused = (historicalDefusals: string[]) => {
         historicalDefusals.forEach((line) => {
-            console.log(line);
+            const userDefused = this.getUserFromString(line);
+            this.userStatsMain[userDefused].bombsDefused++;
         });
     };
 
     formatBombsPlanted = (historicalPlantings: string[]) => {
         historicalPlantings.forEach((line) => {
-            console.log(line);
+            const userPlanted = this.getUserFromString(line);
+            this.userStatsMain[userPlanted].bombsPlanted++;
         });
     };
 };
