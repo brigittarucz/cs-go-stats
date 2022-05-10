@@ -21,6 +21,21 @@ module.exports = class UserStatsManager {
                     : (weaponsUser[purchase] = 1);
             });
         };
+        this.formatMoneyMovements = (historicalMoney) => {
+            historicalMoney.forEach((line) => {
+                let isThisSpent;
+                line.includes("+") ? (isThisSpent = false) : (isThisSpent = true);
+                const money = isThisSpent
+                    ? Number(line.split("money change")[1].split("-")[1].split(" ")[0])
+                    : Number(line.split("+")[1].split(" ")[0]);
+                !isThisSpent &&
+                    (this.userStatsMain[this.getUserFromString(line)].moneyWon +=
+                        money);
+                isThisSpent &&
+                    (this.userStatsMain[this.getUserFromString(line)].moneySpent +=
+                        money);
+            });
+        };
     }
 };
 //# sourceMappingURL=UserStatsManager.js.map

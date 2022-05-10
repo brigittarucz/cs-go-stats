@@ -142,6 +142,10 @@ module.exports = class RawDataManager {
                 weapons: {},
                 attacked: {},
                 assisted: {},
+                moneyWon: 0,
+                moneySpent: 0,
+                bombsDefused: 0,
+                bombsPlanted: 0,
             };
         });
 

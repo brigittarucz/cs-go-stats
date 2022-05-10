@@ -107,8 +107,8 @@ function constructStats() {
     );
 
     userStatsInstance.formatPurchases(historical[KeywordsEnum.USER_PURCHASED]);
-
-    console.log(userStatsInstance.getUserStatsMain());
+    userStatsInstance.formatMoneyMovements(historical[KeywordsEnum.USER_MONEY]);
+    // console.log(userStatsInstance.getUserStatsMain());
 }
 
 module.exports = initialize;

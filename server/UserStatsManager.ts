@@ -14,6 +14,10 @@ interface UserStatisticsI {
     weapons: Record<string, number>;
     attacked: Record<string, unknown>;
     assisted: Record<string, unknown>;
+    moneyWon: number;
+    moneySpent: number;
+    bombsDefused: number;
+    bombsPlanted: number;
 }
 
 module.exports = class UserStatsManager {
@@ -42,6 +46,27 @@ module.exports = class UserStatsManager {
             purchase in weaponsUser
                 ? weaponsUser[purchase]++
                 : (weaponsUser[purchase] = 1);
+        });
+    };
+
+    formatMoneyMovements = (historicalMoney: string[]) => {
+        historicalMoney.forEach((line) => {
+            let isThisSpent: boolean;
+            line.includes("+") ? (isThisSpent = false) : (isThisSpent = true);
+
+            const money = isThisSpent
+                ? Number(
+                      line.split("money change")[1].split("-")[1].split(" ")[0]
+                  )
+                : Number(line.split("+")[1].split(" ")[0]);
+
+            !isThisSpent &&
+                (this.userStatsMain[this.getUserFromString(line)].moneyWon +=
+                    money);
+
+            isThisSpent &&
+                (this.userStatsMain[this.getUserFromString(line)].moneySpent +=
+                    money);
         });
     };
 };
