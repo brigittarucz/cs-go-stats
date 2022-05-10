@@ -36,6 +36,27 @@ module.exports = class UserStatsManager {
                         money);
             });
         };
+        this.formatAttacked = (historicalAttacked) => {
+            historicalAttacked.forEach((line) => {
+                const attacker = this.getUserFromString(line.split("attacked")[0]);
+                const attacked = this.getUserFromString(line.split("attacked")[1]);
+                const attackerAttackHistory = this.userStatsMain[attacker].attacked;
+                !(attacked in attackerAttackHistory) &&
+                    (attackerAttackHistory[attacked] = {
+                        times: 0,
+                        with: [],
+                    });
+                // eslint-disable-next-line prettier/prettier
+                const attackValue = line.split("with")[1].split("\"");
+                attacked in attackerAttackHistory &&
+                    attackerAttackHistory[attacked].times++ &&
+                    attackerAttackHistory[attacked].with.push({
+                        weapon: attackValue[1],
+                        damage: Number(attackValue[3]),
+                        hitgroup: attackValue[11],
+                    });
+            });
+        };
     }
 };
 //# sourceMappingURL=UserStatsManager.js.map

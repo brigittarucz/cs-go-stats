@@ -61,7 +61,8 @@ function constructStats() {
     const userStatsInstance = new UserStatsManager(usersInitCT, usersInitT, dataManagerInstance.formatTeams(historical[KeywordsEnum.MATCH_STATUS_TEAMS]), dataManagerInstance.constructUsersStats(usersInitCT.concat(usersInitT)), dataManagerInstance.formatWins(rounds, historical[KeywordsEnum.T_WIN].concat(historical[KeywordsEnum.CT_WIN])));
     userStatsInstance.formatPurchases(historical[KeywordsEnum.USER_PURCHASED]);
     userStatsInstance.formatMoneyMovements(historical[KeywordsEnum.USER_MONEY]);
-    // console.log(userStatsInstance.getUserStatsMain());
+    userStatsInstance.formatAttacked(historical[KeywordsEnum.USER_ATTACKED]);
+    console.log(userStatsInstance.getUserStatsMain().b1t.attacked.shox.with);
 }
 module.exports = initialize;
 // module.exports.initialize = initialize;

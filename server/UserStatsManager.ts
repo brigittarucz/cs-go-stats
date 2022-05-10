@@ -10,9 +10,20 @@ interface RoundI {
     win?: string;
 }
 
+interface WithI {
+    weapon: string;
+    damage: number;
+    hitgroup: string;
+}
+
+interface AttackedI {
+    times: number;
+    with: WithI[];
+}
+
 interface UserStatisticsI {
     weapons: Record<string, number>;
-    attacked: Record<string, unknown>;
+    attacked: Record<string, AttackedI>;
     assisted: Record<string, unknown>;
     moneyWon: number;
     moneySpent: number;
@@ -67,6 +78,32 @@ module.exports = class UserStatsManager {
             isThisSpent &&
                 (this.userStatsMain[this.getUserFromString(line)].moneySpent +=
                     money);
+        });
+    };
+
+    formatAttacked = (historicalAttacked: string[]) => {
+        historicalAttacked.forEach((line) => {
+            const attacker = this.getUserFromString(line.split("attacked")[0]);
+            const attacked = this.getUserFromString(line.split("attacked")[1]);
+
+            const attackerAttackHistory = this.userStatsMain[attacker].attacked;
+
+            !(attacked in attackerAttackHistory) &&
+                (attackerAttackHistory[attacked] = {
+                    times: 0,
+                    with: [],
+                });
+
+            // eslint-disable-next-line prettier/prettier
+            const attackValue = line.split("with")[1].split("\"")
+
+            attacked in attackerAttackHistory &&
+                attackerAttackHistory[attacked].times++ &&
+                attackerAttackHistory[attacked].with.push({
+                    weapon: attackValue[1],
+                    damage: Number(attackValue[3]),
+                    hitgroup: attackValue[11],
+                });
         });
     };
 };
