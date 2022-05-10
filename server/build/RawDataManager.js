@@ -35,7 +35,7 @@ module.exports = class RawDataManager {
         this.formatUsers = function (arrLines) {
             const formattedUsers = arrLines.map((line) => {
                 // eslint-disable-next-line prettier/prettier
-                return line.split("<")[0].split("\"")[1];
+                return line.split("<")[0].split("\"")[1].trim();
             });
             this.findDuplicates(formattedUsers).forEach((duplicateUser) => {
                 formattedUsers.splice(formattedUsers.indexOf(duplicateUser), 1);
@@ -58,6 +58,27 @@ module.exports = class RawDataManager {
                 }
             });
             return formattedTeams;
+        };
+        this.formatRounds = (arrRounds) => {
+            // TODO: use date type
+            const rounds = [];
+            arrRounds.forEach((round) => {
+                var _a;
+                const date = round.slice(0, 21);
+                const arrSplitByKeywords = round.split("Score: ")[1].split(" on");
+                const score = arrSplitByKeywords[0];
+                const roundsPlayed = Number(arrSplitByKeywords[1].split("RoundsPlayed: ")[1]);
+                if (roundsPlayed > 0 &&
+                    ((_a = rounds[rounds.length - 1]) === null || _a === void 0 ? void 0 : _a.roundsPlayed) !== roundsPlayed) {
+                    const round = {
+                        date,
+                        score,
+                        roundsPlayed,
+                    };
+                    rounds.push(round);
+                }
+            });
+            return rounds;
         };
         this.constructUsersStats = (arrUsers) => {
             const usersStats = {};

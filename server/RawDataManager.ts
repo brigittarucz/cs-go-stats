@@ -5,6 +5,12 @@ enum KeywordsEnumDataManager {
     USER_CONNECT_T = "USER_CONNECT_T",
 }
 
+interface RoundInterface {
+    date: string;
+    score: string;
+    roundsPlayed: number;
+}
+
 module.exports = class RawDataManager {
     constructor(protected areTeamsSet: boolean) {}
 
@@ -52,7 +58,7 @@ module.exports = class RawDataManager {
     formatUsers = function (arrLines: string[]) {
         const formattedUsers = arrLines.map((line) => {
             // eslint-disable-next-line prettier/prettier
-            return line.split("<")[0].split("\"")[1];
+            return line.split("<")[0].split("\"")[1].trim();
         });
 
         this.findDuplicates(formattedUsers).forEach((duplicateUser: string) => {
@@ -78,6 +84,35 @@ module.exports = class RawDataManager {
         });
 
         return formattedTeams;
+    };
+
+    formatRounds = (arrRounds: string[]) => {
+        // TODO: use date type
+        const rounds: RoundInterface[] = [];
+
+        arrRounds.forEach((round) => {
+            const date = round.slice(0, 21);
+            const arrSplitByKeywords = round.split("Score: ")[1].split(" on");
+            const score = arrSplitByKeywords[0];
+            const roundsPlayed = Number(
+                arrSplitByKeywords[1].split("RoundsPlayed: ")[1]
+            );
+
+            if (
+                roundsPlayed > 0 &&
+                rounds[rounds.length - 1]?.roundsPlayed !== roundsPlayed
+            ) {
+                const round: RoundInterface = {
+                    date,
+                    score,
+                    roundsPlayed,
+                };
+
+                rounds.push(round);
+            }
+        });
+
+        return rounds;
     };
 
     constructUsersStats = (arrUsers: string[]) => {

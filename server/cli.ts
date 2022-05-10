@@ -24,39 +24,45 @@ enum KeywordsEnum {
 
 const dataManagerInstance = new RawDataManager(false, historical, keywords);
 
-if (!(historical.LAST_LINE_READ === LAST_LINE)) {
-    let lastLine: string;
+function initialize() {
+    if (!(historical.LAST_LINE_READ === LAST_LINE)) {
+        let lastLine: string;
 
-    lineReader.on("line", (line) => {
-        lastLine = line;
+        lineReader.on("line", (line) => {
+            lastLine = line;
 
-        for (const key in keywords) {
-            if (line.includes(keywords[key])) {
-                dataManagerInstance.buildHistory(
-                    key,
-                    line,
-                    historical,
-                    keywords
-                );
-                return;
+            for (const key in keywords) {
+                if (line.includes(keywords[key])) {
+                    dataManagerInstance.buildHistory(
+                        key,
+                        line,
+                        historical,
+                        keywords
+                    );
+                    return;
+                }
             }
-        }
-    });
-
-    lineReader.on("close", () => {
-        historical.LAST_LINE_READ = lastLine;
-
-        fs.writeFile("./historical.json", JSON.stringify(historical), (err) => {
-            if (err) {
-                console.log("File writing error", err);
-            }
-            console.log("File.txt parsed");
-            constructStats();
         });
-    });
-} else {
-    console.log("File.txt exists");
-    constructStats();
+
+        lineReader.on("close", () => {
+            historical.LAST_LINE_READ = lastLine;
+
+            fs.writeFile(
+                "./historical.json",
+                JSON.stringify(historical),
+                (err) => {
+                    if (err) {
+                        console.log("File writing error", err);
+                    }
+                    console.log("File.txt parsed");
+                    constructStats();
+                }
+            );
+        });
+    } else {
+        console.log("File.txt exists");
+        constructStats();
+    }
 }
 
 function constructStats() {
@@ -71,8 +77,17 @@ function constructStats() {
         usersInitT,
         dataManagerInstance.formatTeams(
             historical[KeywordsEnum.MATCH_STATUS_TEAMS]
+        ),
+        dataManagerInstance.constructUsersStats(usersInitCT.concat(usersInitT)),
+        dataManagerInstance.formatRounds(
+            historical[KeywordsEnum.MATCH_STATUS_ROUNDS]
         )
     );
 
     console.log(userStatsInstance);
 }
+
+module.exports = initialize;
+
+// module.exports.initialize = initialize;
+// module.exports.constructStats = constructStats

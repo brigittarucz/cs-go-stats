@@ -3,11 +3,19 @@ interface TeamI {
     players: string[];
 }
 
+interface RoundInterface {
+    date: string;
+    score: string;
+    roundsPlayed: number;
+}
+
 module.exports = class UserStatsManager {
     constructor(
         protected initTeamCT: TeamI,
         protected initTeamT: TeamI,
-        protected userStatsMain: Record<string, unknown>
+        protected initTeams: Record<string, unknown>[],
+        protected userStatsMain: Record<string, unknown>,
+        protected rounds: RoundInterface[]
     ) {}
 
     initialize = () => {
