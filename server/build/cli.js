@@ -59,7 +59,8 @@ function constructStats() {
     const usersInitT = dataManagerInstance.formatUsers(historical[KeywordsEnum.USER_CONNECT_T]);
     const rounds = dataManagerInstance.formatRounds(historical[KeywordsEnum.MATCH_STATUS_ROUNDS]);
     const userStatsInstance = new UserStatsManager(usersInitCT, usersInitT, dataManagerInstance.formatTeams(historical[KeywordsEnum.MATCH_STATUS_TEAMS]), dataManagerInstance.constructUsersStats(usersInitCT.concat(usersInitT)), dataManagerInstance.formatWins(rounds, historical[KeywordsEnum.T_WIN].concat(historical[KeywordsEnum.CT_WIN])));
-    console.log(userStatsInstance);
+    userStatsInstance.formatPurchases(historical[KeywordsEnum.USER_PURCHASED]);
+    console.log(userStatsInstance.getUserStatsMain());
 }
 module.exports = initialize;
 // module.exports.initialize = initialize;

@@ -106,7 +106,9 @@ function constructStats() {
         )
     );
 
-    console.log(userStatsInstance);
+    userStatsInstance.formatPurchases(historical[KeywordsEnum.USER_PURCHASED]);
+
+    console.log(userStatsInstance.getUserStatsMain());
 }
 
 module.exports = initialize;

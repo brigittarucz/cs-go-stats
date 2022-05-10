@@ -56,10 +56,14 @@ module.exports = class RawDataManager {
         }
     };
 
+    getUserFromString = (line: string) => {
+        return line.split("<")[0].split('"')[1].trim();
+    };
+
     formatUsers = function (arrLines: string[]) {
         const formattedUsers = arrLines.map((line) => {
             // eslint-disable-next-line prettier/prettier
-            return line.split("<")[0].split("\"")[1].trim();
+            return this.getUserFromString(line);
         });
 
         this.findDuplicates(formattedUsers).forEach((duplicateUser: string) => {
@@ -117,8 +121,6 @@ module.exports = class RawDataManager {
     };
 
     formatWins = (rounds: RoundInterface[], wins: string[]) => {
-        console.log(wins);
-
         const newRounds = rounds.map((round) => {
             const scoreNumbers = round.score.split(":");
             const winString = `(CT "${scoreNumbers[0]}") (T "${scoreNumbers[1]}")`;
@@ -136,7 +138,11 @@ module.exports = class RawDataManager {
     constructUsersStats = (arrUsers: string[]) => {
         const usersStats = {};
         arrUsers.forEach((user) => {
-            usersStats[user] = {};
+            usersStats[user] = {
+                weapons: {},
+                attacked: {},
+                assisted: {},
+            };
         });
 
         return usersStats;

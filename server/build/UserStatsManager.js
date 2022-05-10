@@ -5,8 +5,21 @@ module.exports = class UserStatsManager {
         this.initTeams = initTeams;
         this.userStatsMain = userStatsMain;
         this.rounds = rounds;
-        this.initialize = () => {
-            console.log("hi");
+        this.getUserFromString = (line) => {
+            return line.split("<")[0].split('"')[1].trim();
+        };
+        this.getUserStatsMain = () => {
+            return this.userStatsMain;
+        };
+        this.formatPurchases = (historicalPurchases) => {
+            historicalPurchases.forEach((line) => {
+                const weaponsUser = this.userStatsMain[this.getUserFromString(line)].weapons;
+                // eslint-disable-next-line prettier/prettier
+                const purchase = line.split("\"")[3];
+                purchase in weaponsUser
+                    ? weaponsUser[purchase]++
+                    : (weaponsUser[purchase] = 1);
+            });
         };
     }
 };
