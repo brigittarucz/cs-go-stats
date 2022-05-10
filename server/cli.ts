@@ -109,8 +109,9 @@ function constructStats() {
     userStatsInstance.formatPurchases(historical[KeywordsEnum.USER_PURCHASED]);
     userStatsInstance.formatMoneyMovements(historical[KeywordsEnum.USER_MONEY]);
     userStatsInstance.formatAttacked(historical[KeywordsEnum.USER_ATTACKED]);
+    userStatsInstance.formatAssisted(historical[KeywordsEnum.USER_ASSISTED]);
 
-    console.log(userStatsInstance.getUserStatsMain().b1t.attacked.shox.with);
+    console.log(userStatsInstance.getUserStatsMain().electronic.assisted);
 }
 
 module.exports = initialize;

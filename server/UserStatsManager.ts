@@ -24,7 +24,7 @@ interface AttackedI {
 interface UserStatisticsI {
     weapons: Record<string, number>;
     attacked: Record<string, AttackedI>;
-    assisted: Record<string, unknown>;
+    assisted: Record<string, { times: number }>;
     moneyWon: number;
     moneySpent: number;
     bombsDefused: number;
@@ -104,6 +104,23 @@ module.exports = class UserStatsManager {
                     damage: Number(attackValue[3]),
                     hitgroup: attackValue[11],
                 });
+        });
+    };
+
+    formatAssisted = (historicalAssisted: string[]) => {
+        historicalAssisted.forEach((line) => {
+            const assistee = this.getUserFromString(line.split("assisted")[0]);
+            const killedAfterAssist = this.getUserFromString(
+                line.split("assisted")[1]
+            );
+
+            const assisteeAssistHistory = this.userStatsMain[assistee].assisted;
+
+            !(killedAfterAssist in assisteeAssistHistory) &&
+                (assisteeAssistHistory[killedAfterAssist] = { times: 0 });
+
+            killedAfterAssist in assisteeAssistHistory &&
+                assisteeAssistHistory[killedAfterAssist].times++;
         });
     };
 };
