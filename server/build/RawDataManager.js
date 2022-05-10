@@ -95,15 +95,16 @@ module.exports = class RawDataManager {
         this.constructUsersStats = (arrUsers) => {
             const usersStats = {};
             arrUsers.forEach((user) => {
-                usersStats[user] = {
+                const newUserStat = {
                     weapons: {},
                     attacked: {},
-                    assisted: {},
+                    assistedKilling: {},
                     moneyWon: 0,
                     moneySpent: 0,
                     bombsDefused: 0,
                     bombsPlanted: 0,
                 };
+                usersStats[user] = newUserStat;
             });
             return usersStats;
         };

@@ -57,15 +57,28 @@ module.exports = class UserStatsManager {
                     });
             });
         };
+        this.formatKilled = (historicalKilled) => {
+            console.log(historicalKilled);
+        };
         this.formatAssisted = (historicalAssisted) => {
             historicalAssisted.forEach((line) => {
                 const assistee = this.getUserFromString(line.split("assisted")[0]);
                 const killedAfterAssist = this.getUserFromString(line.split("assisted")[1]);
-                const assisteeAssistHistory = this.userStatsMain[assistee].assisted;
+                const assisteeAssistHistory = this.userStatsMain[assistee].assistedKilling;
                 !(killedAfterAssist in assisteeAssistHistory) &&
                     (assisteeAssistHistory[killedAfterAssist] = { times: 0 });
                 killedAfterAssist in assisteeAssistHistory &&
                     assisteeAssistHistory[killedAfterAssist].times++;
+            });
+        };
+        this.formatBombsDefused = (historicalDefusals) => {
+            historicalDefusals.forEach((line) => {
+                console.log(line);
+            });
+        };
+        this.formatBombsPlanted = (historicalPlantings) => {
+            historicalPlantings.forEach((line) => {
+                console.log(line);
             });
         };
     }

@@ -24,7 +24,7 @@ interface AttackedI {
 interface UserStatisticsI {
     weapons: Record<string, number>;
     attacked: Record<string, AttackedI>;
-    assisted: Record<string, { times: number }>;
+    assistedKilling: Record<string, { times: number }>;
     moneyWon: number;
     moneySpent: number;
     bombsDefused: number;
@@ -107,6 +107,10 @@ module.exports = class UserStatsManager {
         });
     };
 
+    formatKilled = (historicalKilled: string[]) => {
+        console.log(historicalKilled);
+    };
+
     formatAssisted = (historicalAssisted: string[]) => {
         historicalAssisted.forEach((line) => {
             const assistee = this.getUserFromString(line.split("assisted")[0]);
@@ -114,13 +118,26 @@ module.exports = class UserStatsManager {
                 line.split("assisted")[1]
             );
 
-            const assisteeAssistHistory = this.userStatsMain[assistee].assisted;
+            const assisteeAssistHistory =
+                this.userStatsMain[assistee].assistedKilling;
 
             !(killedAfterAssist in assisteeAssistHistory) &&
                 (assisteeAssistHistory[killedAfterAssist] = { times: 0 });
 
             killedAfterAssist in assisteeAssistHistory &&
                 assisteeAssistHistory[killedAfterAssist].times++;
+        });
+    };
+
+    formatBombsDefused = (historicalDefusals: string[]) => {
+        historicalDefusals.forEach((line) => {
+            console.log(line);
+        });
+    };
+
+    formatBombsPlanted = (historicalPlantings: string[]) => {
+        historicalPlantings.forEach((line) => {
+            console.log(line);
         });
     };
 };

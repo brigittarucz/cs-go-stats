@@ -5,6 +5,15 @@ enum KeywordsEnumDataManager {
     USER_CONNECT_T = "USER_CONNECT_T",
 }
 
+interface UserStatisticsI {
+    weapons: Record<string, number>;
+    attacked: Record<string, AttackedI>;
+    assistedKilling: Record<string, { times: number }>;
+    moneyWon: number;
+    moneySpent: number;
+    bombsDefused: number;
+    bombsPlanted: number;
+}
 interface RoundInterface {
     date: string;
     score: string;
@@ -138,15 +147,17 @@ module.exports = class RawDataManager {
     constructUsersStats = (arrUsers: string[]) => {
         const usersStats = {};
         arrUsers.forEach((user) => {
-            usersStats[user] = {
+            const newUserStat: UserStatisticsI = {
                 weapons: {},
                 attacked: {},
-                assisted: {},
+                assistedKilling: {},
                 moneyWon: 0,
                 moneySpent: 0,
                 bombsDefused: 0,
                 bombsPlanted: 0,
             };
+
+            usersStats[user] = newUserStat;
         });
 
         return usersStats;

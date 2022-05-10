@@ -109,9 +109,15 @@ function constructStats() {
     userStatsInstance.formatPurchases(historical[KeywordsEnum.USER_PURCHASED]);
     userStatsInstance.formatMoneyMovements(historical[KeywordsEnum.USER_MONEY]);
     userStatsInstance.formatAttacked(historical[KeywordsEnum.USER_ATTACKED]);
+    userStatsInstance.formatKilled(historical[KeywordsEnum.USER_KILLED]);
     userStatsInstance.formatAssisted(historical[KeywordsEnum.USER_ASSISTED]);
-
-    console.log(userStatsInstance.getUserStatsMain().electronic.assisted);
+    userStatsInstance.formatBombsDefused(
+        historical[KeywordsEnum.BOMB_DEFUSALS]
+    );
+    userStatsInstance.formatBombsPlanted(
+        historical[KeywordsEnum.BOMB_PLANTINGS]
+    );
+    console.log(userStatsInstance.getUserStatsMain());
 }
 
 module.exports = initialize;
