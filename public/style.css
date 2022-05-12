@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,80,400;0,100,300;0,100,500;0,100,600;0,100,700;0,100,800;1,100,300;1,100,400;1,100,500;1,100,600;1,100,700;1,100,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --dark-blue: #151A26;
+    --dark-magenta: #3F2432;
+    --dusty-blue: #1F273A;
+    --dusty-magenta: #9E556B;
+    --plain-white: white;
+    --dusty-grey: #D6C4CE;
+    --light-brown: #AD95A1;
+}
+
+body {
+    margin: 0;
+}
+
+* {
+    margin-top: 0;
+}
+
+.bg-wrapper {
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    background-image: url('./images/background.jpg');
+    background-size: cover;
+    overflow: hidden;
+}
+
+.bg-overlay {
+    height: 100vh;
+    width: 100vw;
+    /* Dusty Blue + Light Brown */
+    background: linear-gradient(180deg, rgba(173,149,161,0.5) 0%, rgba(31,39,58,0.5) 100%);
+    background-size: cover;
+    overflow-y: hidden;
+}
+
+header {
+    /* Dark Blue + Dark Magenta */
+    height: 12vh;
+    background: linear-gradient(180deg, rgba(21,26,38,0.9) 0%, rgba(63,36,50,0.9) 100%);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 1rem;
+}
+
+h3.header_team_title {
+    font-size: 22px;
+    font-family: 'Open Sans';
+    font-kerning: normal;
+    font-weight: 400;
+    font-stretch: semi-condensed;
+    color: var(--dusty-magenta)
+}
+
+p.header_team_user-name {
+    font-size: 14px;
+    font-family: 'Roboto';
+    font-weight: 100;
+}
+
+h2.header_score_title {
+    font-size: 30px;
+    font-family: 'Roboto';
+    font-weight: 100;
+}
+
+section.header_score {
+    text-align: center;
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h4.header_score {
+    font-size: 38px;
+    font-family: 'Open Sans';
+    font-weight: 200;
+}
+
+p.header_score_time {
+    font-size: 20px;
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+
+h4.main_general_title, h4.main_scoreboards_title {
+    font-size: 28px;
+    font-family: 'Open Sans';
+    font-kerning: normal;
+    font-weight: 600;
+    font-stretch: semi-condensed;
+}
+
+main {
+    overflow-y: auto;
+    height: 84vh;
+    padding: 2rem 8rem;
+}
+
+.main_general_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main_general_wrapper article {
+    height: 250px;
+    padding: 20px;
+    background-color: var(--light-brown);
+    text-align: center;
+}
+
+.main_general_article-flex {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.main_general_article-map_image {
+    width: 100px;
+    height: 100px;
+}
+
+.main_general_wrapper p {
+    font-family: 'Roboto';
+    font-weight: 100;
+    font-size: 16;
+}
+
+.main_general_wrapper h5 {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 24px;
+}
+
+
+/* https://codepen.io/devstreak/pen/dMYgeO */
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: var(--dark-blue);
+	border: 0px solid #555555;
+}
