@@ -104,6 +104,7 @@ module.exports = class RawDataManager {
                     moneySpent: 0,
                     bombsDefused: 0,
                     bombsPlanted: 0,
+                    totalKills: 0,
                 };
                 usersStats[user] = newUserStat;
             });

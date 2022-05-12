@@ -105,6 +105,8 @@ module.exports = class UserStatsManager {
 
             const killerKillHistory = this.userStatsMain[killer].killed;
 
+            this.userStatsMain[killer].totalKills++;
+
             !(killed in killerKillHistory) &&
                 (killerKillHistory[killed] = {
                     times: 0,

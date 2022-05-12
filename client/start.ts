@@ -43,6 +43,10 @@ class domManipulator {
 
         getElement(this.elementSelector.mainSpender).innerHTML =
             deadliestSpender;
+
+        const deadliestUser = this.getDeadliestUser(this.stats.userStatsMain);
+
+        getElement(this.elementSelector.mainKiller).innerHTML = deadliestUser;
     };
 
     loadTitle = (team: string, titleSelector: HTMLElement) => {
@@ -70,11 +74,24 @@ class domManipulator {
         let username: string;
 
         for (const user in usersStats) {
-            console.log(user);
             if (usersStats[user].moneySpent === maxValue) {
-                console.log(user);
                 username = user;
                 return username;
+            }
+        }
+    };
+
+    getDeadliestUser = (usersStats) => {
+        // extract max from each then compare to each other
+        const killings: number[] = [];
+        for (const user in usersStats) {
+            killings.push(usersStats[user].totalKills);
+        }
+        const maxValue = Math.max(...killings);
+
+        for (const user in usersStats) {
+            if (usersStats[user].totalKills === maxValue) {
+                return user;
             }
         }
     };

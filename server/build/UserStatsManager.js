@@ -75,6 +75,7 @@ module.exports = (_a = class UserStatsManager {
                     const weapon = line.split("with")[1].split('"')[1];
                     const isItHeadshot = Boolean(line.split("with")[1].split('"')[2]);
                     const killerKillHistory = this.userStatsMain[killer].killed;
+                    this.userStatsMain[killer].totalKills++;
                     !(killed in killerKillHistory) &&
                         (killerKillHistory[killed] = {
                             times: 0,

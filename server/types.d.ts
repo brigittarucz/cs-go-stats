@@ -36,4 +36,5 @@ interface UserStatisticsI {
     moneySpent: number;
     bombsDefused: number;
     bombsPlanted: number;
+    totalKills: number;
 }
