@@ -8,6 +8,8 @@ class domManipulator {
         titleTeam1: ".users_team_1 h3",
         titleTeam2: ".users_team_2 h3",
         username: ".header_team_user-name",
+        scoreTeam1: ".score_team_1",
+        scoreTeam2: ".score_team_2",
         wrapperTeam1: ".users_team_1 .header_team_wrapper",
         wrapperTeam2: ".users_team_2 .header_team_wrapper",
         userTemplate: ".template-user",
@@ -34,14 +36,20 @@ class domManipulator {
             this.stats.initTeamT,
             getElement(this.elementSelector.wrapperTeam2)
         );
+
+        const deadliestSpender = this.getDeadliestSpender(
+            this.stats.userStatsMain
+        );
+
+        getElement(this.elementSelector.mainSpender).innerHTML =
+            deadliestSpender;
     };
 
-    loadTitle = (team, titleSelector) => {
-        console.log(team);
+    loadTitle = (team: string, titleSelector: HTMLElement) => {
         titleSelector.innerHTML = team;
     };
 
-    loadPlayers = (users, wrapperSelector) => {
+    loadPlayers = (users: string[], wrapperSelector: HTMLElement) => {
         users.forEach((user) => {
             const template = getElement(
                 this.elementSelector.userTemplate
@@ -51,6 +59,25 @@ class domManipulator {
             wrapperSelector.appendChild(template);
         });
     };
+
+    getDeadliestSpender = (usersStats) => {
+        const spentSums: number[] = [];
+        for (const user in usersStats) {
+            spentSums.push(usersStats[user].moneySpent);
+        }
+
+        const maxValue = Math.max(...spentSums);
+        let username: string;
+
+        for (const user in usersStats) {
+            console.log(user);
+            if (usersStats[user].moneySpent === maxValue) {
+                console.log(user);
+                username = user;
+                return username;
+            }
+        }
+    };
 }
 
 (async () => {
@@ -59,19 +86,4 @@ class domManipulator {
 
     const domManipulatorInstance = new domManipulator(resJson.stats);
     domManipulatorInstance.initialize();
-    // const template = getElement("#template-matrix").content.cloneNode(true);
-
-    //     for (let i = 1; i <= Math.pow(size, 2); i++) {
-    //         const div = document.createElement("div");
-    //         div.className = `${i}-matrix-cell`;
-    //         template.querySelector("#container-matrix").appendChild(div);
-    //     }
-
-    //     for (let i = 1; i <= size; i++) {
-    //         for (let j = 1; j <= size; j++) {
-    //             this.multidimensionPositionalArray.push([j, i]);
-    //         }
-    //     }
-
-    //     node.appendChild(template);
 })();
