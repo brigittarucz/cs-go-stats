@@ -9,11 +9,14 @@ module.exports = (_a = class UserStatsManager {
             this.getUserFromString = (line) => {
                 return line.split("<")[0].split('"')[1].trim();
             };
-            this.getUserStatsMain = () => {
-                // console.log(this.userStatsMain);
-                // console.log(this.initTeamT);
-                // console.log(this.initTeamCT);
-                return this.userStatsMain;
+            this.getStats = () => {
+                return {
+                    initTeamCT: this.initTeamCT,
+                    initTeamT: this.initTeamT,
+                    initTeams: this.initTeams,
+                    rounds: this.rounds,
+                    userStatsMain: this.userStatsMain,
+                };
             };
             this.formatPurchases = (historicalPurchases) => {
                 historicalPurchases.forEach((line) => {

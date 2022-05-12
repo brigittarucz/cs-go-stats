@@ -5,29 +5,6 @@ enum KeywordsEnumDataManager {
     USER_CONNECT_T = "USER_CONNECT_T",
 }
 
-interface KilledI {
-    times: number;
-    weapons: string[];
-    headshots: number;
-}
-
-interface UserStatisticsI {
-    weapons: Record<string, number>;
-    attacked: Record<string, AttackedI>;
-    killed: Record<string, KilledI>;
-    assistedKilling: Record<string, { times: number }>;
-    moneyWon: number;
-    moneySpent: number;
-    bombsDefused: number;
-    bombsPlanted: number;
-}
-interface RoundInterface {
-    date: string;
-    score: string;
-    roundsPlayed: number;
-    reasonWin?: string;
-}
-
 module.exports = class RawDataManager {
     constructor(protected areTeamsSet: boolean) {}
 
@@ -109,7 +86,7 @@ module.exports = class RawDataManager {
 
     formatRounds = (arrRounds: string[]) => {
         // TODO: use date type
-        const rounds: RoundInterface[] = [];
+        const rounds: RoundI[] = [];
 
         arrRounds.forEach((round) => {
             const date = round.slice(0, 21);
@@ -123,7 +100,7 @@ module.exports = class RawDataManager {
                 roundsPlayed > 0 &&
                 rounds[rounds.length - 1]?.roundsPlayed !== roundsPlayed
             ) {
-                const round: RoundInterface = {
+                const round: RoundI = {
                     date,
                     score,
                     roundsPlayed,
@@ -136,7 +113,7 @@ module.exports = class RawDataManager {
         return rounds;
     };
 
-    formatWins = (rounds: RoundInterface[], wins: string[]) => {
+    formatWins = (rounds: RoundI[], wins: string[]) => {
         const newRounds = rounds.map((round) => {
             const scoreNumbers = round.score.split(":");
             const winString = `(CT "${scoreNumbers[0]}") (T "${scoreNumbers[1]}")`;
