@@ -99,13 +99,14 @@ section.header_score {
     text-align: center;
     margin: 0 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 h4.header_score {
     font-size: 38px;
     font-family: 'Open Sans';
     font-weight: 200;
+    margin-top: 20px;
 }
 
 p.header_score_time {

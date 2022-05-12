@@ -46,18 +46,18 @@ module.exports = class RawDataManager {
             return formattedUsers;
         };
         this.formatTeams = (arrLines) => {
-            const formattedTeams = arrLines.map((line) => {
+            const formattedTeams = {
+                CT: "",
+                T: "",
+            };
+            arrLines.forEach((line) => {
                 const arrWords = line.split(":");
                 const teamName = arrWords[arrWords.length - 1].trim();
                 if (line.includes("CT")) {
-                    return {
-                        CT: teamName,
-                    };
+                    formattedTeams.CT = teamName;
                 }
                 else {
-                    return {
-                        T: teamName,
-                    };
+                    formattedTeams.T = teamName;
                 }
             });
             return formattedTeams;
