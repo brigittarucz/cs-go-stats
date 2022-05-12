@@ -6,7 +6,7 @@ The focus of this code repository is data processing and manipulation. There cou
 
 In order to get started run `yarn install` at the root of the repository.
 
-In order to process the `game.txt` run `yarn start` which ensures the latest build is available. Afterwards `cd` into `server\build` and run `node cli.js`.
+In order to process the `game.txt` run `yarn start` which ensures the latest build is available. Afterwards `cd` into `server\build` and run `node cli.js`. At the moment of writing, the relevant lines are extracted out of `game.txt` and can be viewed in `historical.json`. In order to be able to view the command in action, replace the content of `historical.json` with `historical.empty.json`, then run it. 
 
 ### Stats object structure
 
