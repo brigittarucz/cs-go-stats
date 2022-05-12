@@ -1,6 +1,6 @@
 # Scope
 
-The focus of this code repository is data processing and manipulation. There could be many different ways to improve the UI, generate statistics, however I have placed a greater emphasis on showcasing the method than having a full solution.
+The focus of this code repository is data processing and manipulation. There could be many different ways to improve the UI, generate statistics, however I have placed a greater emphasis on showcasing the method rather than having a full solution.
 
 ## Installation
 
@@ -10,6 +10,7 @@ In order to process the `game.txt` run `yarn start` which ensures the latest bui
 
 ### Stats object structure
 
+```
 {
     initTeamCT: string[],
     initTeamT: string[],
@@ -61,6 +62,7 @@ In order to process the `game.txt` run `yarn start` which ensures the latest bui
         }
     }
 }
+```
 
 ### Looks
 
