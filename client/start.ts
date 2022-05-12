@@ -28,7 +28,6 @@ class domManipulator {
     };
 
     initialize = () => {
-        console.log(this.stats);
         this.loadTitle(
             this.stats.initTeams.CT,
             getElement(this.elementSelector.titleTeam1)

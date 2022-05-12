@@ -15,6 +15,4 @@ app.get("/getStats", (req, res) => {
 app.listen(port, () => {
     console.log(`CORS enabled server listening on ${port}`);
 });
-// TODO: create README obj look
-// TODO: clear console logs
 //# sourceMappingURL=server.js.map

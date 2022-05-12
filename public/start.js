@@ -27,7 +27,6 @@ class domManipulator {
             scoreboardTeam2: ".scoreboard_team_2 tbody",
         };
         this.initialize = () => {
-            console.log(this.stats);
             this.loadTitle(this.stats.initTeams.CT, getElement(this.elementSelector.titleTeam1));
             this.loadTitle(this.stats.initTeams.T, getElement(this.elementSelector.titleTeam2));
             this.loadPlayers(this.stats.initTeamCT, getElement(this.elementSelector.wrapperTeam1));
