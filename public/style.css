@@ -38,11 +38,40 @@ body {
 
 header {
     /* Dark Blue + Dark Magenta */
-    height: 12vh;
+    height: 15vh;
     background: linear-gradient(180deg, rgba(21,26,38,0.9) 0%, rgba(63,36,50,0.9) 100%);
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     padding: 1rem;
+    text-align: center;
+}
+
+.header_team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.header_team_wrapper {
+    margin-top: -10px;
+    display: flex;
+}
+
+.header_team_wrapper, .header_team_wrapper {
+    width: 100%;
+}
+
+.header_team_user-image {
+    margin: 5px auto;
+    width: 30px;
+    height: 30px;
+    background-color: #AD95A1;
+    border-radius: 20px;
+}
+
+.header_team_wrapper {
+    display: flex;
+    justify-content: space-around;
 }
 
 h3.header_team_title {
@@ -95,7 +124,7 @@ h4.main_general_title, h4.main_scoreboards_title {
 
 main {
     overflow-y: auto;
-    height: 84vh;
+    height: 72vh;
     padding: 2rem 8rem;
 }
 
@@ -105,13 +134,21 @@ main {
 }
 
 .main_general_wrapper article {
-    height: 250px;
+    height: 200px;
     padding: 20px;
     background-color: var(--light-brown);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(140deg, rgba(21,26,38,1) 0%, rgba(107,63,76,1) 100%);
 }
 
-.main_general_article-flex {
+.main_general_wrapper h5 {
+    margin-bottom: 10px;
+}
+
+.main_general_article-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -119,6 +156,11 @@ main {
 .main_general_article-map_image {
     width: 100px;
     height: 100px;
+}
+
+.main_general_article-icon {
+    width: 40px;
+    height: 40px;
 }
 
 .main_general_wrapper p {
@@ -131,8 +173,32 @@ main {
     font-family: 'Roboto';
     font-weight: 400;
     font-size: 24px;
+    padding: 10px;
+    color: var(--dusty-grey);
 }
 
+.main_scoreboards_title {
+    margin-top: 35px;
+}
+
+.main_scoreboards_wrapper table {
+    width: 100%;
+    margin-bottom: 2rem;
+    background: linear-gradient(140deg, rgba(21,26,38,1) 0%, rgba(107,63,76,1) 100%);
+}
+
+.main_scoreboards_wrapper th:nth-child(1), th:nth-child(2) {
+    width: 80px;
+}
+
+.main_scoreboards_wrapper th {
+    font-size: 16px;
+    font-family: 'Open Sans';
+    font-kerning: normal;
+    font-weight: 800;
+    font-stretch: semi-condensed;
+    color: var(--dusty-magenta)
+}
 
 /* https://codepen.io/devstreak/pen/dMYgeO */
 
