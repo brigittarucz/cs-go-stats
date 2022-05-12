@@ -16,6 +16,5 @@ app.listen(port, () => {
     console.log(`CORS enabled server listening on ${port}`);
 });
 // TODO: create README obj look
-// TODO: types file
 // TODO: clear console logs
 //# sourceMappingURL=server.js.map

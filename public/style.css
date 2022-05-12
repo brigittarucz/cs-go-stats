@@ -143,6 +143,12 @@ main {
     justify-content: center;
     align-items: center;
     background: linear-gradient(140deg, rgba(21,26,38,1) 0%, rgba(107,63,76,1) 100%);
+    width: 100%;
+    margin-right: 40px;
+}
+
+.main_general_wrapper article:last-child {
+    margin-right: 0;
 }
 
 .main_general_wrapper h5 {
@@ -188,15 +194,39 @@ main {
     background: linear-gradient(140deg, rgba(21,26,38,1) 0%, rgba(107,63,76,1) 100%);
 }
 
+.main_scoreboards_wrapper table td {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--dusty-grey)
+}
+
 .main_scoreboards_wrapper th:nth-child(1), th:nth-child(2) {
     width: 80px;
 }
 
+.main_scoreboards_wrapper th:last-child {
+    width: 500px;
+}
+
+table tbody tr td:last-child {
+    font-size: 12px;
+}
+
+.main_scoreboards_wrapper thead tr {
+    line-height: 50px;
+}
+
+.main_scoreboards_wrapper td {
+    text-align: center;
+}
+
 .main_scoreboards_wrapper th {
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Open Sans';
     font-kerning: normal;
-    font-weight: 800;
+    font-weight: 500;
+    text-transform: uppercase;
     font-stretch: semi-condensed;
     color: var(--dusty-magenta)
 }

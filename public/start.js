@@ -12,10 +12,19 @@ class domManipulator {
             scoreTeam2: ".score_team_2",
             wrapperTeam1: ".users_team_1 .header_team_wrapper",
             wrapperTeam2: ".users_team_2 .header_team_wrapper",
-            userTemplate: ".template-user",
+            userTemplate: ".template_user",
+            userTemplateRow: ".template_user_row",
+            trKills: ".tr_kills",
+            trUsername: ".tr_username",
+            trPlanted: ".tr_planted",
+            trDefused: ".tr_defused",
+            trAssists: ".tr_assists",
+            trWeapons: ".tr_weapons",
             mainSpender: ".main_general_article-spender",
             mainKiller: ".main_general_article-deadliest",
             mainWeapon: ".main_general_article-weapon",
+            scoreboardTeam1: ".scoreboard_team_1 tbody",
+            scoreboardTeam2: ".scoreboard_team_2 tbody",
         };
         this.initialize = () => {
             console.log(this.stats);
@@ -28,6 +37,16 @@ class domManipulator {
                 deadliestSpender;
             const deadliestUser = this.getDeadliestUser(this.stats.userStatsMain);
             getElement(this.elementSelector.mainKiller).innerHTML = deadliestUser;
+            this.stats.initTeamCT.forEach((user) => {
+                this.loadUsersScoreboard(this.stats.userStatsMain[user], user, getElement(this.elementSelector.scoreboardTeam1));
+            });
+            this.stats.initTeamT.forEach((user) => {
+                this.loadUsersScoreboard(this.stats.userStatsMain[user], user, getElement(this.elementSelector.scoreboardTeam2));
+            });
+            const scoreTeam1 = this.stats.rounds[this.stats.rounds.length - 1].score.split(":")[1];
+            const scoreTeam2 = this.stats.rounds[this.stats.rounds.length - 1].score.split(":")[0];
+            getElement(this.elementSelector.scoreTeam1).innerHTML = scoreTeam1;
+            getElement(this.elementSelector.scoreTeam2).innerHTML = scoreTeam2;
         };
         this.loadTitle = (team, titleSelector) => {
             titleSelector.innerHTML = team;
@@ -55,7 +74,6 @@ class domManipulator {
             }
         };
         this.getDeadliestUser = (usersStats) => {
-            // extract max from each then compare to each other
             const killings = [];
             for (const user in usersStats) {
                 killings.push(usersStats[user].totalKills);
@@ -66,6 +84,30 @@ class domManipulator {
                     return user;
                 }
             }
+        };
+        this.loadUsersScoreboard = (user, username, wrapperSelector) => {
+            const template = getElement(this.elementSelector.userTemplateRow).content.cloneNode(true);
+            template.querySelector(this.elementSelector.trUsername).innerHTML =
+                username;
+            template.querySelector(this.elementSelector.trKills).innerHTML =
+                user.totalKills;
+            template.querySelector(this.elementSelector.trDefused).innerHTML =
+                user.bombsDefused;
+            template.querySelector(this.elementSelector.trPlanted).innerHTML =
+                user.bombsPlanted;
+            let assists = 0;
+            for (const userKilledThroughAssist in user.assistedKilling) {
+                assists += user.assistedKilling[userKilledThroughAssist].times;
+            }
+            template.querySelector(this.elementSelector.trAssists).innerHTML =
+                assists;
+            let weapons = "";
+            for (const weapon in user.weapons) {
+                weapons += weapon + " | ";
+            }
+            template.querySelector(this.elementSelector.trWeapons).innerHTML =
+                weapons;
+            wrapperSelector.appendChild(template);
         };
     }
 }

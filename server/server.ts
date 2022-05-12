@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
 const constructStatsUsers = require("./DataController.js");
+
 app.use(bodyParser.json());
 
 const corsOptions = {
@@ -21,5 +22,4 @@ app.listen(port, () => {
 });
 
 // TODO: create README obj look
-// TODO: types file
 // TODO: clear console logs
