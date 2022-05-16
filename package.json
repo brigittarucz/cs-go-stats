@@ -5,7 +5,7 @@
         "server"
     ],
     "private": "true",
-    "repository": "https://github.com/brigittarucz/blast-challenge.git",
+    "repository": "https://github.com/brigittarucz/cs-go-stats.git",
     "author": "BR <brigitta.rucz@yahoo.com>",
     "license": "MIT",
     "scripts": {
